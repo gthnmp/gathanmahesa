@@ -14,10 +14,10 @@ export default class OverviewPageSmoothScroll {
     this.isDragging = false;
     this.startY = 0;
     this.ease =  0.075;
-    this.touchSpeed = 2;
+    this.touchSpeed = 1.5;
 
-    this.container = document.querySelector('.overview')!;
-    this.maximumX = parseFloat(getComputedStyle(this.container).height) - window.innerHeight * 0.75;
+    this.container = document.querySelector('.home')!;
+    this.maximumX = parseFloat(getComputedStyle(this.container).height) - window.innerHeight;
 
     this.smoothScroll = this.smoothScroll.bind(this);
     this.handleWheel = this.handleWheel.bind(this);
@@ -52,7 +52,7 @@ export default class OverviewPageSmoothScroll {
 
   handleWheel(e: WheelEvent) {
     e.preventDefault();
-    this.target = Math.min(this.maximumX, Math.max(0, this.target + e.deltaY * 0.5));
+    this.target = Math.min(this.maximumX, Math.max(0, this.target + e.deltaY));
   }
 
   handleMouseDown(event: MouseEvent) {
@@ -63,7 +63,7 @@ export default class OverviewPageSmoothScroll {
   handleMouseMove(event: MouseEvent) {
     if (!this.isDragging) return;
     const deltaY = event.clientY - this.startY;
-    this.target = Math.min(this.maximumX, Math.max(0, this.target - deltaY * 2));
+    this.target = Math.min(this.maximumX, Math.max(0, this.target - deltaY * this.touchSpeed));
     this.startY = event.clientY;
   }
 

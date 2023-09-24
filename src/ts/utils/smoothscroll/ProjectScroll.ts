@@ -1,25 +1,32 @@
-export default class SmoothScroller {
+function convertRemToPixels(rem: number) {    
+  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+export default class ProjectPageSmoothScroll {
+  
   current: number;
   target: number;
   isDragging: boolean;
   startY: number;
   ease: number;
-  selectionHeader: HTMLHeadElement;
-  itemWidth: HTMLDivElement;
-  maximumX: number;
+  container: HTMLHeadElement;
   touchSpeed: number;
+  maximumX: number;
+  cardWidth: number;
+  cardGap: number;
 
   constructor() {
     this.current = 0;
     this.target = 0;
     this.isDragging = false;
     this.startY = 0;
-    this.ease = window.innerWidth > 768 ? 0.075 : 1;
-    this.touchSpeed = window.innerWidth > 768 ? 2.5 : 1;
+    this.ease =  0.095;
+    this.touchSpeed = 1.5;
+    this.cardWidth = 15
+    this.cardGap = 1; 
 
-    this.selectionHeader = document.querySelector('.selection > header')!;
-    this.itemWidth = document.querySelector('.selection > header > .item-container:last-child')!;
-    this.maximumX = parseFloat(getComputedStyle(this.selectionHeader).width) - parseFloat(getComputedStyle(this.itemWidth).width);
+    this.container = document.querySelector('.project-grid')!;
+    this.maximumX = convertRemToPixels(this.cardWidth * 3 + this.cardGap * 4);
 
     this.smoothScroll = this.smoothScroll.bind(this);
     this.handleWheel = this.handleWheel.bind(this);
@@ -30,7 +37,9 @@ export default class SmoothScroller {
     this.handleTouchMove = this.handleTouchMove.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
 
-    this.init();
+    if(window.innerWidth > 768){
+      this.init();
+    }
   }
 
   lerp(start: number, end: number, t: number) {
@@ -42,28 +51,27 @@ export default class SmoothScroller {
       element.style.transform = change;
     }
   }
-
   smoothScroll() {
     this.current = this.lerp(this.current, this.target, this.ease);
     this.current = parseFloat(this.current.toFixed(2));
-    this.setTransform(this.selectionHeader, `translate3d(${-this.current}px, 0 ,0)`);
+    this.setTransform(this.container, `translate3d(calc(50% - ${(this.cardWidth / 2)}rem - ${this.current}px), 0, 0)`);
     requestAnimationFrame(this.smoothScroll);
   }
 
   handleWheel(e: WheelEvent) {
     e.preventDefault();
-    this.target = Math.min(this.maximumX, Math.max(0, this.target + e.deltaY * 1.5));
+    this.target = Math.min(this.maximumX, Math.max(0, this.target + e.deltaY));
   }
 
   handleMouseDown(event: MouseEvent) {
     this.isDragging = true;
-    this.startY = event.clientX;
+    this.startY = event.clientY;
   }
 
   handleMouseMove(event: MouseEvent) {
     if (!this.isDragging) return;
     const deltaY = event.clientX - this.startY;
-    this.target = Math.min(this.maximumX, Math.max(0, this.target - deltaY * 2.5));
+    this.target = Math.min(this.maximumX, Math.max(0, this.target - deltaY * this.touchSpeed));
     this.startY = event.clientX;
   }
 
@@ -73,14 +81,14 @@ export default class SmoothScroller {
 
   handleTouchStart(event: TouchEvent) {
     this.isDragging = true;
-    this.startY = event.touches[0].clientX;
+    this.startY = event.touches[0].clientY;
   }
 
   handleTouchMove(event: TouchEvent) {
     if (!this.isDragging) return;
-    const deltaY = event.touches[0].clientX - this.startY;
-    this.target = Math.min(this.maximumX, Math.max(0, this.target - deltaY * this.touchSpeed ));
-    this.startY = event.touches[0].clientX;
+    const deltaY = event.touches[0].clientY - this.startY;
+    this.target = Math.min(this.maximumX, Math.max(0, this.target - deltaY * this.touchSpeed));
+    this.startY = event.touches[0].clientY;
   }
 
   handleTouchEnd() {
@@ -98,3 +106,4 @@ export default class SmoothScroller {
     window.addEventListener('touchend', this.handleTouchEnd);
   }
 }
+

@@ -1,13 +1,12 @@
 import runGL from "./gl/runGL";
-import SmoothScroller from "./smoothscroll/SelectedScroll";
-import { Overview, Selected, About } from "../routes";
+import { Overview, Works, About } from "../routes";
 import OverviewPageSmoothScroll from "./smoothscroll/OverviewScroll";
-import logImageSource from "./handler/handleImageClick";
+import ProjectPageSmoothScroll from "./smoothscroll/ProjectScroll";
 
 const routes: { [path: string]: string }  = {
   "/": Overview,
   "/about": About,
-  "/selected": Selected
+  "/works": Works 
 };
 
 const overlayElement = document.querySelector('.overlay') as HTMLDivElement;
@@ -30,14 +29,6 @@ const addLinkListeners = () => {
         
         window.history.pushState({ path: pathname }, pathname, pathname);
         render(pathname);
-
-        links.forEach(link => {
-          if (link === target) {
-            link.classList.add('active-nav');
-          } else {
-            link.classList.remove('active-nav');
-          }
-        });
       }
     })
   );
@@ -46,33 +37,18 @@ const addLinkListeners = () => {
 };
 
 const render = (path: string) => {
-  if (!listenersAdded) {
+  addLinkListeners();
+  appElement.innerHTML = routes[path] || '<h1>Not Found</h1>';
+
+  if(currentPath === "/works"){
+    new ProjectPageSmoothScroll();
+    addLinkListeners();
+  } else if (currentPath === "/"){
+    addLinkListeners();
+    new OverviewPageSmoothScroll() && window.innerWidth > 768 
+  } else if (currentPath === "/about"){
     addLinkListeners();
   }
-  
-  appElement.classList.add('fade-out');
-
-  setTimeout(() => {
-    overlayElement.classList.add('active');
-  }, 250);
-
-  setTimeout(() => {
-    appElement.innerHTML = routes[path] || '<h1>Not Found</h1>';
-  }, 800);
-  
-  setTimeout(() => {
-    appElement.classList.remove('fade-out');
-    overlayElement.classList.remove('active')
-
-    if(currentPath === "/selected"){
-      runGL()
-      new SmoothScroller() && window.innerWidth > 768
-    } else if (currentPath === "/"){
-      new OverviewPageSmoothScroll() && window.innerWidth > 768 
-      logImageSource()
-    }
-  }, 935);
-
 };
 
 window.addEventListener("popstate", (event) => {
