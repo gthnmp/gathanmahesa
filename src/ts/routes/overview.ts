@@ -1,5 +1,5 @@
 const overview = `
-<div class="overview flex flex-col items-center pb-24 gap-24 home">
+<div class="overview content flex flex-col items-center pb-24 gap-24 home">
   <header class="w-screen h-screen flex flex-col justify-center items-center gap-10 pointer-events-none select-none">
     <h1 class="lg:text-8xl text-6xl px-8 text-center w-full leading-none tracking-normal font-semibold uppercase font-sans flex flex-col items-center">
       <span>Gathan</span>

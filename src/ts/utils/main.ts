@@ -3,9 +3,10 @@ import OverviewPageSmoothScroll from "./smoothscroll/OverviewScroll";
 import ProjectPageSmoothScroll from "./smoothscroll/ProjectScroll";
 
 import SplitType from "split-type";
-import gsap from "gsap";
+const { gsap } = window
 
 const appElement = document.querySelector('#app') as HTMLDivElement;
+const overlay = document.querySelector('#overlay') as HTMLDivElement;
 let currentPath = window.location.pathname;
 
 const routes: { [path: string]: string }  = {
@@ -71,9 +72,15 @@ const addLinkListeners = () => {
       
       if (pathname !== currentPath) {
         currentPath = pathname;
+        appElement.classList.add('exit');
+        overlay.classList.add('active')
         
-        window.history.pushState({ path: pathname }, pathname, pathname);
-        render(pathname);
+        setTimeout(() => {
+          appElement.classList.remove('exit');
+          overlay.classList.remove('active');
+          window.history.pushState({ path: pathname }, pathname, pathname);
+          render(pathname);
+        }, 750)
       }
     })
   );
@@ -82,16 +89,11 @@ const addLinkListeners = () => {
 const render = (path: string) => {
   addLinkListeners();
 
-  appElement.classList.add('exit');
-  
-  setTimeout(() => {
-    appElement.classList.remove('exit');
-    appElement.innerHTML = routes[path] || '<h1>Not Found</h1>';
-    const action = pageInitializer[currentPath as keyof typeof pageInitializer];
-    if (action) {
-      action();
-    }
-  }, 300)
+  appElement.innerHTML = routes[path] || '<h1>Not Found</h1>';
+  const action = pageInitializer[currentPath as keyof typeof pageInitializer];
+  if (action) {
+    action();
+  }
 };
 
 window.addEventListener("popstate", (event) => {

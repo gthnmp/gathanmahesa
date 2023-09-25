@@ -1,20 +1,40 @@
-.exit {
-  animation: app-exit 500ms;
+#app.exit {
+  animation: exit-fade-scale 800ms;
 }
 
-.exit .line > div{
-  animation: line-exit 450ms;
+#overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  transform: translateY(100%);
+  position: fixed;
 }
 
-#app .overview {
-  animation: opacity-enter 450ms;
+#overlay.active{
+  animation: overlap 750ms;
+  z-index: 50;
 }
 
-@keyframes app-exit {
+.content {
+  animation: opacity-enter 400ms;
+}
+
+
+@keyframes exit-fade-scale {
   from {
-    opacity: 1
+    transform: scale(1);
+    opacity: 1;
   } to {
-    opacity: 0 
+    transform: scale(.95);
+    opacity: .75;
+  }
+}
+
+@keyframes overlap {
+  from{
+    transform: translateY(100%);
+  } to {
+    transform: translateY(0%);
   }
 }
 
