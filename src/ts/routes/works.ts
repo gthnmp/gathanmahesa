@@ -28,7 +28,7 @@ const generateProjectCards = () => {
 };
 
 const works = `
-<div class="about overflow-hidden content w-screen h-screen font-sans">
+<div class="works overflow-hidden content w-screen h-screen font-sans">
   <nav class="fixed top-0 w-screen pointer-events-auto h-20 p-4">
     <a href="/" class="text-xs tracking-wider uppercase font-semibold"> Back </a>
   </nav>

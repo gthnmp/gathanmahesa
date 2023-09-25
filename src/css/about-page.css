@@ -1,0 +1,14 @@
+.self-potrait {
+  animation: potrait-entrace 1s cubic-bezier(.17,.67,.19,.98)
+}
+
+@keyframes potrait-entrace {
+  from {
+    opacity: 0;
+    transform: translateY(50%);
+  } to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+

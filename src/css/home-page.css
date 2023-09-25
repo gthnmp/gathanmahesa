@@ -1,0 +1,42 @@
+.headline-link {
+  position:relative;
+  overflow:hidden;
+  padding-bottom: 1rem;
+}
+
+.headline-link::after {
+  content: '';
+  background-color: black;
+  position: absolute;
+  left:0; 
+  bottom: 0;
+  height: 5px;
+  width: 100%;
+  border-radius: 2px;
+  transition: all .8s;
+  transform: translateX(100%);
+  animation: underline-not-hover .75s;
+}
+
+.headline-link:hover::after {
+  transform: translateX(0%);
+  animation:underline-hover .75s 
+}
+
+
+@keyframes underline-not-hover {
+  from {
+    transform : translateX(0%)
+  } to {
+    transform : translateX(100%)
+  }
+}
+
+@keyframes underline-hover {
+  from {
+    transform : translateX(-100%)
+  } to {
+    transform : translateX(0%)
+  }
+}
+
