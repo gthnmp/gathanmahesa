@@ -1,4 +1,3 @@
-// Define an array of project data
 const projects = [
   {
     title: 'Rafly Diaz',
@@ -19,18 +18,15 @@ const projects = [
 ];
 
 const generateProjectCards = () => {
-  return projects.map((project) => `
-    <div class='project-card w-full h-full flex items-center'>
-      <div class="h-96 w-full flex flex-col justify-center hover:scale-105 transition-transform duration-300">
-        <div class="w-60 h-80 bg-neutral-400">
-          <img draggable="false" src="${project.imageSrc}" class="w-full h-full object-cover" /> 
-        </div>
+  return projects.map((project, index) => `
+    <div id="${index}" class='project-card w-full h-max flex items-center pointer-events-auto'>
+      <div class="w-auto h-80 aspect-[3/4] bg-neutral-400 project-card-thumbnail">
+        <img draggable="false" src="${project.imageSrc}" class="w-full h-full object-cover" /> 
       </div>
     </div>
   `).join('');
 };
 
-// Create the HTML content with dynamic project cards
 const works = `
 <div class="about overflow-hidden content w-screen h-screen font-sans">
   <nav class="fixed top-0 w-screen pointer-events-auto h-20 p-4">

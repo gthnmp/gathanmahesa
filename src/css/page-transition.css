@@ -1,29 +1,37 @@
-.fade-out {
-  filter: brightness(0.3);
-  transform: translateY(-20%);
-  transition: filter 0.5s ease-in-out, transform 5s;
-  pointer-events: none;
+.exit {
+  animation: app-exit 500ms;
 }
 
-.overlay {
-  background-color: white;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  transform: translateY(100%);
+.exit .line > div{
+  animation: line-exit 450ms;
 }
 
-.overlay.active {
-  animation: slide-in 750ms cubic-bezier(.26,.32,0,.99);
-  transform: translateY(0%);
-  z-index: 10;
+#app .overview {
+  animation: opacity-enter 450ms;
 }
 
-.overview.content .line > h1,
-.overview.content .line > div,
-.overview.content .line > p {
-  transform: translateY(0%);
-  animation: show-line 2s cubic-bezier(.34,.46,0,.98); /* Add a smooth transition */
+@keyframes app-exit {
+  from {
+    opacity: 1
+  } to {
+    opacity: 0 
+  }
+}
+
+@keyframes opacity-enter {
+  from {
+    opacity:0  
+  } to {
+    opacity:1 
+  }
+}
+
+@keyframes line-exit {
+  from {
+    transform : translateY(0%)
+  } to {
+    transform : translateY(-100%)
+  }
 }
 
 .overview.content .item-container{
