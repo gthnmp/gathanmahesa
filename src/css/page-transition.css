@@ -19,13 +19,6 @@
   z-index: 10;
 }
 
-.about.content .line > h1,
-.about.content .line > div,
-.about.content .line > p {
-  transform: translateY(0%);
-  animation: show-line 2s cubic-bezier(.34,.46,0,.98); /* Add a smooth transition */
-}
-
 .overview.content .line > h1,
 .overview.content .line > div,
 .overview.content .line > p {

@@ -13,7 +13,7 @@ export default class OverviewPageSmoothScroll {
     this.target = 0;
     this.isDragging = false;
     this.startY = 0;
-    this.ease =  0.075;
+    this.ease =  0.095;
     this.touchSpeed = 1.5;
 
     this.container = document.querySelector('.home')!;
