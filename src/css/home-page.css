@@ -1,3 +1,7 @@
+#app .name > span{
+  overflow: hidden;
+}
+
 .headline-link {
   position:relative;
   overflow:hidden;

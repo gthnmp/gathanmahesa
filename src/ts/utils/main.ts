@@ -20,6 +20,23 @@ const pageInitializer = {
     if (window.innerWidth > 768) {
       new OverviewPageSmoothScroll();
     }
+    
+    const name = new SplitType('.name > span');
+    gsap.from(name.words, {
+      yPercent: 150,
+      ease: "power4",
+      duration: 2,
+    });
+    
+    const paragraph = new SplitType('.overview > header p');
+    gsap.from(paragraph.words, {
+      yPercent: 120,
+      ease: "power4",
+      stagger:0.025,
+      duration: 1.5,
+      delay:0.5
+    });
+    
     addLinkListeners();
   },
   

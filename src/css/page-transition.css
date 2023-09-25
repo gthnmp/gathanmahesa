@@ -16,9 +16,8 @@
 }
 
 .content {
-  animation: opacity-enter 400ms;
+  animation: opacity-enter 300ms;
 }
-
 
 @keyframes exit-fade-scale {
   from {
