@@ -5,7 +5,7 @@
 #overlay {
   width: 100vw;
   height: 100vh;
-  background-color: white;
+  background-color: rgb(245, 245, 245);
   transform: translateY(100%);
   position: fixed;
 }

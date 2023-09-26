@@ -84,13 +84,13 @@ const addLinkListeners = () => {
       
       if (pathname !== currentPath) {
         currentPath = pathname;
+        window.history.pushState({ path: pathname }, pathname, pathname);
         appElement.classList.add('exit');
         overlay.classList.add('active')
         
         setTimeout(() => {
           appElement.classList.remove('exit');
           overlay.classList.remove('active');
-          window.history.pushState({ path: pathname }, pathname, pathname);
           render(pathname);
         }, 700)
       }
