@@ -23,7 +23,7 @@ const pageInitializer = {
     
     const name = new SplitType('.name > span');
     gsap.from(name.words, {
-      yPercent: 150,
+      yPercent: 120,
       ease: "power4",
       duration: 2,
     });
@@ -42,11 +42,6 @@ const pageInitializer = {
   
   "/works": () => {
     new ProjectPageSmoothScroll();
-    const projectCards = document.querySelectorAll('.project-card-thumbnail')
-    projectCards.forEach((card) => {
-      card.addEventListener('click', () => {
-      })
-    })
     addLinkListeners();
   },
   
@@ -97,7 +92,7 @@ const addLinkListeners = () => {
           overlay.classList.remove('active');
           window.history.pushState({ path: pathname }, pathname, pathname);
           render(pathname);
-        }, 750)
+        }, 700)
       }
     })
   );

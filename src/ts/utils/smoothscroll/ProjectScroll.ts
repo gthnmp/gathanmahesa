@@ -3,7 +3,6 @@ function convertRemToPixels(rem: number) {
 }
 
 export default class ProjectPageSmoothScroll {
-  
   current: number;
   target: number;
   isDragging: boolean;
@@ -12,21 +11,25 @@ export default class ProjectPageSmoothScroll {
   container: HTMLHeadElement;
   touchSpeed: number;
   maximumX: number;
+  projectCard : HTMLDivElement;
   cardWidth: number;
+  cardHeight: number;
   cardGap: number;
 
   constructor() {
+    this.container = document.querySelector('.project-grid')!;
+    this.projectCard = document.querySelector('.project-card') as HTMLDivElement;
     this.current = 0;
     this.target = 0;
     this.isDragging = false;
     this.startY = 0;
     this.ease =  0.095;
     this.touchSpeed = 1.5;
-    this.cardWidth = 15
+    this.cardWidth = parseInt(getComputedStyle(this.projectCard).width)
+    this.cardHeight = parseInt(getComputedStyle(this.projectCard).height)
     this.cardGap = 1; 
 
-    this.container = document.querySelector('.project-grid')!;
-    this.maximumX = convertRemToPixels(this.cardWidth * 3 + this.cardGap * 4);
+    this.maximumX = this.cardHeight * 3 + convertRemToPixels(this.cardGap * 4);
 
     this.smoothScroll = this.smoothScroll.bind(this);
     this.handleWheel = this.handleWheel.bind(this);
@@ -54,7 +57,8 @@ export default class ProjectPageSmoothScroll {
   smoothScroll() {
     this.current = this.lerp(this.current, this.target, this.ease);
     this.current = parseFloat(this.current.toFixed(2));
-    this.setTransform(this.container, `translate3d(calc(50% - ${(this.cardWidth / 2)}rem - ${this.current}px), 0, 0)`);
+    this.setTransform(this.container, `translate3d(calc(50% - ${(this.cardWidth / 2)}px), calc(50% - ${this.cardHeight /2}px - ${this.current}px), 0)`);
+    console.log(this.current, this.maximumX)
     requestAnimationFrame(this.smoothScroll);
   }
 
@@ -70,9 +74,9 @@ export default class ProjectPageSmoothScroll {
 
   handleMouseMove(event: MouseEvent) {
     if (!this.isDragging) return;
-    const deltaY = event.clientX - this.startY;
+    const deltaY = event.clientY - this.startY;
     this.target = Math.min(this.maximumX, Math.max(0, this.target - deltaY * this.touchSpeed));
-    this.startY = event.clientX;
+    this.startY = event.clientY;
   }
 
   handleMouseUp() {

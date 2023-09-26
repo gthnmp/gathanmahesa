@@ -7,7 +7,8 @@
 
 .project-card {
   animation: project-card-entrance;
-  animation-timing-function:cubic-bezier(.17,.67,.19,.98)
+  animation-timing-function:cubic-bezier(.17,.67,.19,.98);
+  aspect-ratio: 3/4;
 }
 
   .project-card:nth-child(1){

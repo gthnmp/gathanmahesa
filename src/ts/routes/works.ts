@@ -20,7 +20,7 @@ const projects = [
 const generateProjectCards = () => {
   return projects.map((project, index) => `
     <div id="${index}" class='project-card w-full h-max flex items-center pointer-events-auto'>
-      <div class="w-auto h-80 aspect-[3/4] bg-neutral-400 project-card-thumbnail">
+      <div class="w-[20rem] h-auto aspect-[3/4] bg-neutral-400 project-card-thumbnail">
         <img draggable="false" src="${project.imageSrc}" class="w-full h-full object-cover" /> 
       </div>
     </div>
@@ -33,7 +33,7 @@ const works = `
     <a href="/" class="text-xs tracking-wider uppercase font-semibold"> Back </a>
   </nav>
 
-  <main class="grid grid-flow-col auto-cols-max gap-4 absolute project-grid">
+  <main class="grid grid-flow-row auto-cols-max gap-4 absolute project-grid">
     ${generateProjectCards()}
   </main>
 </div>
