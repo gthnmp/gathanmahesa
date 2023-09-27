@@ -15,6 +15,23 @@ const routes: { [path: string]: string }  = {
   "/works": Works 
 };
 
+const observeSection = () => {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '100%';
+      } else {
+        entry.target.style.opacity = '20%';
+      }
+    });
+  }, { threshold: [0.5, 1.0] });
+
+  const sections = document.querySelectorAll('section');
+  sections.forEach((s) => {
+    sectionObserver.observe(s);
+  });
+};
+
 const pageInitializer = {
   "/": () => {
     if (window.innerWidth > 768) {
@@ -36,6 +53,8 @@ const pageInitializer = {
       duration: 1.5,
       delay:0.5
     });
+     
+    observeSection()
     
     addLinkListeners();
   },

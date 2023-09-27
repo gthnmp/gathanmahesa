@@ -27,6 +27,9 @@
   animation:underline-hover .75s 
 }
 
+.overview section {
+  transition:opacity 500ms;
+}
 
 @keyframes underline-not-hover {
   from {
