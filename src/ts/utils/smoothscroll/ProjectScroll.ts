@@ -58,7 +58,6 @@ export default class ProjectPageSmoothScroll {
     this.current = this.lerp(this.current, this.target, this.ease);
     this.current = parseFloat(this.current.toFixed(2));
     this.setTransform(this.container, `translate3d(calc(50% - ${(this.cardWidth / 2)}px), calc(50% - ${this.cardHeight /2}px - ${this.current}px), 0)`);
-    console.log(this.current, this.maximumX)
     requestAnimationFrame(this.smoothScroll);
   }
 
